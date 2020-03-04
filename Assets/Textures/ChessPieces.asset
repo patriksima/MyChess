@@ -1,0 +1,321 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &-903635369755781315
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TextMeshPro/Sprite
+  m_Shader: {fileID: 4800000, guid: cf81c85f95fe47e1a27f6ae460cf182c, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8c589b8ba802cde4681b303d12e70de2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
+  m_Name: ChessPieces
+  m_EditorClassIdentifier: 
+  hashCode: -32007033
+  material: {fileID: -903635369755781315}
+  materialHashCode: 0
+  m_Version: 1.1.0
+  spriteSheet: {fileID: 2800000, guid: 8c589b8ba802cde4681b303d12e70de2, type: 3}
+  m_SpriteCharacterTable:
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: QueenBlack
+    m_HashCode: 1889659885
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: KingBlack
+    m_HashCode: 1392076748
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 2
+    m_Scale: 1
+    m_Name: RookBlack
+    m_HashCode: -180390946
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 3
+    m_Scale: 1
+    m_Name: KnightBlack
+    m_HashCode: -1421126480
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 4
+    m_Scale: 1
+    m_Name: BishopBlack
+    m_HashCode: 612995880
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 5
+    m_Scale: 1
+    m_Name: PawnBlack
+    m_HashCode: 108707247
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 6
+    m_Scale: 1
+    m_Name: QueenWhite
+    m_HashCode: 1912128269
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 7
+    m_Scale: 1
+    m_Name: KingWhite
+    m_HashCode: 1416773420
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 8
+    m_Scale: 1
+    m_Name: RookWhite
+    m_HashCode: -202833986
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 9
+    m_Scale: 1
+    m_Name: KnightWhite
+    m_HashCode: -1443595248
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 10
+    m_Scale: 1
+    m_Name: BishopWhite
+    m_HashCode: 628492936
+  - m_ElementType: 2
+    m_Unicode: 0
+    m_GlyphIndex: 11
+    m_Scale: 1
+    m_Name: PawnWhite
+    m_HashCode: 131176015
+  m_SpriteGlyphTable:
+  - m_Index: 0
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -6589711384167663445, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 60
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -1723284701494927329, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 120
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -4566530573195630910, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 180
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 1617944349647875687, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 4
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 240
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 1289126251167146053, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 5
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 300
+      m_Y: 60
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -5820849489804317078, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 6
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -704380984228450866, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 7
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 60
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 4053447963047897649, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 8
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 120
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -7217302472746036128, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 9
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 180
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: -255554546742444619, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 10
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 240
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 3839748586759455107, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  - m_Index: 11
+    m_Metrics:
+      m_Width: 60
+      m_Height: 60
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 60
+      m_HorizontalAdvance: 60
+    m_GlyphRect:
+      m_X: 300
+      m_Y: 0
+      m_Width: 60
+      m_Height: 60
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 4203911069075113643, guid: 8c589b8ba802cde4681b303d12e70de2,
+      type: 3}
+  spriteInfoList: []
+  fallbackSpriteAssets: []
