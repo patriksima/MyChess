@@ -33,8 +33,7 @@ public class Knight : Piece
 
     private void MatchesState(int targetX, int targetY)
     {
-        var cellState = CellState.None;
-        cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
+        var cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
 
         if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
             highlightedCells.Add(currentCell.Board.AllCells[targetX, targetY]);

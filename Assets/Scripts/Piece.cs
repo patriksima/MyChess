@@ -52,8 +52,7 @@ public abstract class Piece : EventTrigger
             currX += xDir;
             currY += yDir;
 
-            var cellState = CellState.None;
-            cellState = currentCell.Board.ValidateCell(currX, currY, this);
+            var cellState = currentCell.Board.ValidateCell(currX, currY, this);
 
             if (cellState == CellState.Enemy)
             {

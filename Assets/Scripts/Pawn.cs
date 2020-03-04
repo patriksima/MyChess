@@ -23,8 +23,7 @@ public class Pawn : Piece
 
     private bool MatchesState(int targetX, int targetY, CellState targetState)
     {
-        var cellState = CellState.None;
-        cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
+        var cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
 
         if (cellState == targetState)
         {
