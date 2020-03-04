@@ -85,7 +85,7 @@ public class King : Piece
             return null;
 
         // Add castle trigger to movement
-        if (rook != null) highlightedCells.Add(rook.CastleTriggercell);
+        highlightedCells.Add(rook.CastleTriggercell);
 
         return rook;
     }
