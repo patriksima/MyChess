@@ -77,6 +77,12 @@ public class OpenFileDialog : MonoBehaviour
             ClearList();
             PopulateList();
         }
+
+        if (itemType == ItemType.File)
+        {
+            GameManager.LoadFile(currentDirectory + Path.DirectorySeparatorChar +
+                                 item.GetComponentInChildren<TextMeshProUGUI>().text);
+        }
     }
 
     private void CreateItem(ItemType itemType, string text)

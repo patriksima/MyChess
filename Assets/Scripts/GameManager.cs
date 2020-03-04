@@ -25,4 +25,9 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public static void LoadFile(string fileName)
+    {
+        Debug.Log("Loading " + fileName);
+    }
 }
