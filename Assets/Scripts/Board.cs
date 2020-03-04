@@ -12,7 +12,7 @@ public enum CellState
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private GameObject cellPrefab = null;
+    [SerializeField] private GameObject cellPrefab;
 
     public Cell[,] AllCells { get; set; } = new Cell[8, 8];
 
@@ -32,7 +32,7 @@ public class Board : MonoBehaviour
         for (var x = 0; x < 8; x += 2)
         for (var y = 0; y < 8; y++)
         {
-            var offset = (y % 2 == 0) ? 1 : 0;
+            var offset = y % 2 == 0 ? 1 : 0;
             var finalX = x + offset;
 
             AllCells[finalX, y].GetComponent<Image>().color = new Color32(230, 220, 187, 255);

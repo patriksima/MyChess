@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    [SerializeField] private GameObject panel = null;
+    [SerializeField] private GameObject panel;
 
     public void TogglePanel()
     {

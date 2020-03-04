@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public abstract class Piece : EventTrigger
 {
+    protected Cell currentCell;
     [SerializeField] private Sprite exampleSprite;
-    private Color teamColor = Color.clear;
-
-    public Color TeamColor
-    {
-        get => teamColor;
-        set => teamColor = value;
-    }
-
-    protected Cell currentCell = null;
-    protected Cell originalCell = null;
-    protected Cell targetCell = null;
-    protected RectTransform rect = null;
-    protected PieceManager pieceManager;
+    protected List<Cell> highlightedCells = new List<Cell>();
     protected bool isFirstMove = true;
+
+    protected Vector3Int movement = Vector3Int.one;
+    protected Cell originalCell;
+    protected PieceManager pieceManager;
+    protected RectTransform rect;
+    protected Cell targetCell;
+
+    public Color TeamColor { get; set; } = Color.clear;
 
     public bool IsFirstMove
     {
@@ -29,13 +24,10 @@ public abstract class Piece : EventTrigger
         set => isFirstMove = value;
     }
 
-    protected Vector3Int movement = Vector3Int.one;
-    protected List<Cell> highlightedCells = new List<Cell>();
-
     public virtual void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
     {
         pieceManager = newPieceManager;
-        teamColor = newTeamColor;
+        TeamColor = newTeamColor;
         GetComponent<Image>().color = newSpriteColor;
         rect = GetComponent<RectTransform>();
     }
@@ -52,15 +44,15 @@ public abstract class Piece : EventTrigger
 
     private void CreateCellPath(int xDir, int yDir, int move)
     {
-        int currX = currentCell.BoardPosition.x;
-        int currY = currentCell.BoardPosition.y;
+        var currX = currentCell.BoardPosition.x;
+        var currY = currentCell.BoardPosition.y;
 
-        for (int i = 1; i <= move; i++)
+        for (var i = 1; i <= move; i++)
         {
             currX += xDir;
             currY += yDir;
 
-            CellState cellState = CellState.None;
+            var cellState = CellState.None;
             cellState = currentCell.Board.ValidateCell(currX, currY, this);
 
             if (cellState == CellState.Enemy)
@@ -99,18 +91,12 @@ public abstract class Piece : EventTrigger
 
     protected void ShowCells()
     {
-        foreach (Cell cell in highlightedCells)
-        {
-            cell.OutlineImage.enabled = true;
-        }
+        foreach (var cell in highlightedCells) cell.OutlineImage.enabled = true;
     }
 
     protected void ClearCells()
     {
-        foreach (Cell cell in highlightedCells)
-        {
-            cell.OutlineImage.enabled = false;
-        }
+        foreach (var cell in highlightedCells) cell.OutlineImage.enabled = false;
 
         highlightedCells.Clear();
     }
@@ -156,7 +142,7 @@ public abstract class Piece : EventTrigger
 
         Move();
 
-        pieceManager.SwitchSides(teamColor);
+        pieceManager.SwitchSides(TeamColor);
     }
 
     public virtual void Kill()

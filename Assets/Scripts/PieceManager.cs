@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class PieceManager : MonoBehaviour
 {
-    [SerializeField] private Color32 whiteColor = new Color32(80, 124, 159, 255);
-    [SerializeField] private Color32 blackColor = new Color32(210, 95, 64, 255);
-    
-    private List<Piece> blackPieces;
-
-    private bool isKingAlive = true;
-
-    public bool IsKingAlive
-    {
-        get => isKingAlive;
-        set => isKingAlive = value;
-    }
-
     private readonly Dictionary<string, Type> pieceLibrary = new Dictionary<string, Type>
     {
         {"P", typeof(Pawn)},
@@ -33,9 +20,16 @@ public class PieceManager : MonoBehaviour
         "R", "N", "B", "Q", "K", "B", "N", "R"
     };
 
-    [SerializeField] private GameObject piecePrefab = null;
+    [SerializeField] private Color32 blackColor = new Color32(210, 95, 64, 255);
+
+    private List<Piece> blackPieces;
+
+    [SerializeField] private GameObject piecePrefab;
+    [SerializeField] private Color32 whiteColor = new Color32(80, 124, 159, 255);
 
     private List<Piece> whitePieces;
+
+    public bool IsKingAlive { get; set; } = true;
 
     public void Setup(Board board)
     {
@@ -83,10 +77,10 @@ public class PieceManager : MonoBehaviour
 
     public void SwitchSides(Color color)
     {
-        if (!isKingAlive)
+        if (!IsKingAlive)
         {
             ResetPieces();
-            isKingAlive = true;
+            IsKingAlive = true;
             color = Color.black;
         }
 
@@ -99,13 +93,7 @@ public class PieceManager : MonoBehaviour
 
     public void ResetPieces()
     {
-        foreach (var whitePiece in whitePieces)
-        {
-            whitePiece.Reset();
-        }
-        foreach (var blackPiece in blackPieces)
-        {
-            blackPiece.Reset();
-        }
+        foreach (var whitePiece in whitePieces) whitePiece.Reset();
+        foreach (var blackPiece in blackPieces) blackPiece.Reset();
     }
 }

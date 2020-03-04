@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class OpenFileDialog : MonoBehaviour
 {
     [SerializeField] private GameObject content;
-    [SerializeField] private GameObject itemPrefab;
-
-    private List<GameObject> items = new List<GameObject>();
 
     private string currentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                       Path.DirectorySeparatorChar + "Downloads";
+
+    [SerializeField] private GameObject itemPrefab;
+
+    private readonly List<GameObject> items = new List<GameObject>();
 
     public void Setup()
     {
@@ -28,31 +26,25 @@ public class OpenFileDialog : MonoBehaviour
 
         ClearList();
 
-        DirectoryInfo directoryInfo = new DirectoryInfo(currentDirectory);
-        DirectoryInfo[] directories = directoryInfo.GetDirectories();
+        var directoryInfo = new DirectoryInfo(currentDirectory);
+        var directories = directoryInfo.GetDirectories();
 
         if (directoryInfo.Parent != null)
             CreateItem(ItemType.Root, "..");
 
-        foreach (var directory in directories)
-        {
-            CreateItem(ItemType.Directory, directory.Name);
-        }
+        foreach (var directory in directories) CreateItem(ItemType.Directory, directory.Name);
 
-        FileInfo[] fileInfo = directoryInfo.GetFiles("*.pgn", SearchOption.TopDirectoryOnly);
-        foreach (var file in fileInfo)
-        {
-            CreateItem(ItemType.File, file.Name);
-        }
+        var fileInfo = directoryInfo.GetFiles("*.pgn", SearchOption.TopDirectoryOnly);
+        foreach (var file in fileInfo) CreateItem(ItemType.File, file.Name);
     }
 
     private void OnItemClick(GameObject item)
     {
-        ItemType itemType = item.GetComponent<FileItem>().ItemType;
+        var itemType = item.GetComponent<FileItem>().ItemType;
 
         if (itemType == ItemType.Root)
         {
-            int lastSlashPos = currentDirectory.LastIndexOf(Path.DirectorySeparatorChar);
+            var lastSlashPos = currentDirectory.LastIndexOf(Path.DirectorySeparatorChar);
             if (lastSlashPos != -1)
             {
                 currentDirectory = currentDirectory.Substring(0, lastSlashPos);
@@ -71,7 +63,7 @@ public class OpenFileDialog : MonoBehaviour
 
     private void CreateItem(ItemType itemType, string text)
     {
-        GameObject item = Instantiate(itemPrefab, transform);
+        var item = Instantiate(itemPrefab, transform);
         item.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(delegate { OnItemClick(item); });
         item.GetComponentInChildren<TextMeshProUGUI>().text = text;
         item.transform.SetParent(content.transform);
@@ -81,10 +73,7 @@ public class OpenFileDialog : MonoBehaviour
 
     private void ClearList()
     {
-        foreach (var item in items)
-        {
-            Destroy(item);
-        }
+        foreach (var item in items) Destroy(item);
 
         items.Clear();
     }

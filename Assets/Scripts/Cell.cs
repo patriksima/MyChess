@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] private Image outlineImage = null;
+    [SerializeField] private Image outlineImage;
 
     public Image OutlineImage
     {
@@ -18,9 +18,9 @@ public class Cell : MonoBehaviour
 
     public void Setup(Vector2Int newBoardPosition, Board newBoard)
     {
-        this.BoardPosition = newBoardPosition;
-        this.Board = newBoard;
-        this.RectTransform = GetComponent<RectTransform>();
+        BoardPosition = newBoardPosition;
+        Board = newBoard;
+        RectTransform = GetComponent<RectTransform>();
 /*
         var d = new GameObject("Cell" + newBoardPosition.ToString());
         d.transform.SetParent(transform);

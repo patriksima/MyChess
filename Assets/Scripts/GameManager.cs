@@ -1,26 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Board board = null;
-    [SerializeField] private PieceManager pieceManager = null;
+    [SerializeField] private Board board;
+    [SerializeField] private PieceManager pieceManager;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         board.Create();
         pieceManager.Setup(board);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKey("escape"))
-        {
-            Quit();
-        }
+        if (Input.GetKey("escape")) Quit();
     }
 
     public void Quit()

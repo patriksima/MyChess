@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MyCursor : MonoBehaviour
 {
-    [SerializeField] private Texture2D cursorTexture = null;
+    [SerializeField] private Texture2D cursorTexture;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }

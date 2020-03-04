@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class King : Piece
 {
-    private Rook leftRook = null;
-    private Rook rightRook = null;
+    private Rook leftRook;
+    private Rook rightRook;
 
     public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
     {
@@ -39,15 +36,9 @@ public class King : Piece
     {
         base.Move();
 
-        if (CanCastle(leftRook))
-        {
-            leftRook.Castle();
-        }
+        if (CanCastle(leftRook)) leftRook.Castle();
 
-        if (CanCastle(rightRook))
-        {
-            rightRook.Castle();
-        }
+        if (CanCastle(rightRook)) rightRook.Castle();
     }
 
     private bool CanCastle(Rook rook)
@@ -66,33 +57,26 @@ public class King : Piece
         if (!isFirstMove) return null;
 
         // Position
-        int currentX = currentCell.BoardPosition.x;
-        int currentY = currentCell.BoardPosition.y;
+        var currentX = currentCell.BoardPosition.x;
+        var currentY = currentCell.BoardPosition.y;
 
         // Go through the cells in between
-        for (int i = 1; i < count; i++)
+        for (var i = 1; i < count; i++)
         {
-            int offsetX = currentX + (i * direction);
-            CellState cellState = currentCell.Board.ValidateCell(offsetX, currentY, this);
+            var offsetX = currentX + i * direction;
+            var cellState = currentCell.Board.ValidateCell(offsetX, currentY, this);
 
-            if (cellState != CellState.Free)
-            {
-                return null;
-            }
+            if (cellState != CellState.Free) return null;
         }
 
         // Try and get rook
-        Cell rookCell = currentCell.Board.AllCells[currentX + (count * direction), currentY];
+        var rookCell = currentCell.Board.AllCells[currentX + count * direction, currentY];
         Rook rook = null;
 
         // Cast
         if (rookCell.CurrentPiece != null)
-        {
             if (rookCell.CurrentPiece is Rook)
-            {
                 rook = (Rook) rookCell.CurrentPiece;
-            }
-        }
 
         if (rook == null)
             return null;
@@ -101,10 +85,7 @@ public class King : Piece
             return null;
 
         // Add castle trigger to movement
-        if (rook != null)
-        {
-            highlightedCells.Add(rook.CastleTriggercell);
-        }
+        if (rook != null) highlightedCells.Add(rook.CastleTriggercell);
 
         return rook;
     }

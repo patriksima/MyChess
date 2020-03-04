@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Knight : Piece
@@ -14,8 +12,8 @@ public class Knight : Piece
 
     private void CreateCellPath(int flipper)
     {
-        int currentX = currentCell.BoardPosition.x;
-        int currentY = currentCell.BoardPosition.y;
+        var currentX = currentCell.BoardPosition.x;
+        var currentY = currentCell.BoardPosition.y;
 
         //left
         MatchesState(currentX - 2, currentY + flipper);
@@ -35,12 +33,10 @@ public class Knight : Piece
 
     private void MatchesState(int targetX, int targetY)
     {
-        CellState cellState = CellState.None;
+        var cellState = CellState.None;
         cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
 
         if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
-        {
-            highlightedCells.Add(currentCell.Board.AllCells[targetX,targetY]);
-        }
+            highlightedCells.Add(currentCell.Board.AllCells[targetX, targetY]);
     }
 }

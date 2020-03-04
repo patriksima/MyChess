@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Rook : Piece
 {
-    public Cell CastleTriggercell { get; set; } = null;
-    private Cell castleCell = null;
+    private Cell castleCell;
+    public Cell CastleTriggercell { get; set; }
 
     public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
     {
@@ -21,11 +19,11 @@ public class Rook : Piece
         base.Place(newCell);
 
         // trigger cell
-        int triggerOffset = currentCell.BoardPosition.x < 4 ? 2 : -1;
+        var triggerOffset = currentCell.BoardPosition.x < 4 ? 2 : -1;
         CastleTriggercell = SetCell(triggerOffset);
 
         // castle cell
-        int castleOffset = currentCell.BoardPosition.x < 4 ? 3 : -2;
+        var castleOffset = currentCell.BoardPosition.x < 4 ? 3 : -2;
         castleCell = SetCell(castleOffset);
     }
 
@@ -41,7 +39,7 @@ public class Rook : Piece
     private Cell SetCell(int offset)
     {
         // ne position
-        Vector2Int newPosition = currentCell.BoardPosition;
+        var newPosition = currentCell.BoardPosition;
         newPosition.x += offset;
 
         // return
