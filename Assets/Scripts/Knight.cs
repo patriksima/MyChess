@@ -36,6 +36,8 @@ public class Knight : Piece
         var cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
 
         if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
+        {
             highlightedCells.Add(currentCell.Board.AllCells[targetX, targetY]);
+        }
     }
 }

@@ -25,6 +25,9 @@ public class Cell : MonoBehaviour
 
     public void RemovePiece()
     {
-        if (CurrentPiece != null) CurrentPiece.Kill();
+        if (CurrentPiece != null)
+        {
+            CurrentPiece.Kill();
+        }
     }
 }

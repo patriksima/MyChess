@@ -42,17 +42,28 @@ public class Board : MonoBehaviour
     public CellState ValidateCell(int targetX, int targetY, Piece checkingPiece)
     {
         if (targetX < 0 || targetX > 7)
+        {
             return CellState.OutOfBounds;
+        }
+
         if (targetY < 0 || targetY > 7)
+        {
             return CellState.OutOfBounds;
+        }
 
         var targetCell = AllCells[targetX, targetY];
 
         if (targetCell.CurrentPiece != null)
         {
-            if (checkingPiece.TeamColor == targetCell.CurrentPiece.TeamColor) return CellState.Friendly;
+            if (checkingPiece.TeamColor == targetCell.CurrentPiece.TeamColor)
+            {
+                return CellState.Friendly;
+            }
 
-            if (checkingPiece.TeamColor != targetCell.CurrentPiece.TeamColor) return CellState.Enemy;
+            if (checkingPiece.TeamColor != targetCell.CurrentPiece.TeamColor)
+            {
+                return CellState.Enemy;
+            }
         }
 
         return CellState.Free;

@@ -61,7 +61,9 @@ public abstract class Piece : EventTrigger
             }
 
             if (cellState != CellState.Free)
+            {
                 break;
+            }
 
             highlightedCells.Add(currentCell.Board.AllCells[currX, currY]);
         }
@@ -90,12 +92,18 @@ public abstract class Piece : EventTrigger
 
     protected void ShowCells()
     {
-        foreach (var cell in highlightedCells) cell.OutlineImage.enabled = true;
+        foreach (var cell in highlightedCells)
+        {
+            cell.OutlineImage.enabled = true;
+        }
     }
 
     protected void ClearCells()
     {
-        foreach (var cell in highlightedCells) cell.OutlineImage.enabled = false;
+        foreach (var cell in highlightedCells)
+        {
+            cell.OutlineImage.enabled = false;
+        }
 
         highlightedCells.Clear();
     }

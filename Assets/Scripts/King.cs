@@ -36,17 +36,28 @@ public class King : Piece
     {
         base.Move();
 
-        if (CanCastle(leftRook)) leftRook.Castle();
+        if (CanCastle(leftRook))
+        {
+            leftRook.Castle();
+        }
 
-        if (CanCastle(rightRook)) rightRook.Castle();
+        if (CanCastle(rightRook))
+        {
+            rightRook.Castle();
+        }
     }
 
     private bool CanCastle(Rook rook)
     {
-        if (rook == null) return false;
+        if (rook == null)
+        {
+            return false;
+        }
 
         if (rook.CastleTriggercell != currentCell)
+        {
             return false;
+        }
 
         return true;
     }
@@ -54,7 +65,10 @@ public class King : Piece
     private Rook GetRook(int direction, int count)
     {
         // Has the king moved?
-        if (!isFirstMove) return null;
+        if (!isFirstMove)
+        {
+            return null;
+        }
 
         // Position
         var currentX = currentCell.BoardPosition.x;
@@ -66,7 +80,10 @@ public class King : Piece
             var offsetX = currentX + i * direction;
             var cellState = currentCell.Board.ValidateCell(offsetX, currentY, this);
 
-            if (cellState != CellState.Free) return null;
+            if (cellState != CellState.Free)
+            {
+                return null;
+            }
         }
 
         // Try and get rook
@@ -75,14 +92,22 @@ public class King : Piece
 
         // Cast
         if (rookCell.CurrentPiece != null)
+        {
             if (rookCell.CurrentPiece is Rook)
+            {
                 rook = (Rook) rookCell.CurrentPiece;
+            }
+        }
 
         if (rook == null)
+        {
             return null;
+        }
 
         if (rook.TeamColor != TeamColor || !rook.IsFirstMove)
+        {
             return null;
+        }
 
         // Add castle trigger to movement
         highlightedCells.Add(rook.CastleTriggercell);

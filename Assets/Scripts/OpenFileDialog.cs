@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class OpenFileDialog : MonoBehaviour
 {
+    private readonly List<GameObject> items = new List<GameObject>();
     [SerializeField] private GameObject content;
 
     private string currentDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
@@ -13,29 +14,46 @@ public class OpenFileDialog : MonoBehaviour
 
     [SerializeField] private GameObject itemPrefab;
 
-    private readonly List<GameObject> items = new List<GameObject>();
-
     public void Setup()
     {
-        Debug.Log(Application.dataPath);
-        Debug.Log(Application.systemLanguage);
-        Debug.Log(Application.persistentDataPath);
-
-        Debug.Log(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-        Debug.Log(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-
         ClearList();
+        PopulateList();
+    }
 
+    private void PopulateList()
+    {
         var directoryInfo = new DirectoryInfo(currentDirectory);
-        var directories = directoryInfo.GetDirectories();
 
         if (directoryInfo.Parent != null)
+        {
             CreateItem(ItemType.Root, "..");
+        }
 
-        foreach (var directory in directories) CreateItem(ItemType.Directory, directory.Name);
+        try
+        {
+            var directories = directoryInfo.GetDirectories();
+            foreach (var directory in directories)
+            {
+                CreateItem(ItemType.Directory, directory.Name);
+            }
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Debug.Log(e.Message);
+        }
 
-        var fileInfo = directoryInfo.GetFiles("*.pgn", SearchOption.TopDirectoryOnly);
-        foreach (var file in fileInfo) CreateItem(ItemType.File, file.Name);
+        try
+        {
+            var fileInfo = directoryInfo.GetFiles("*.pgn", SearchOption.TopDirectoryOnly);
+            foreach (var file in fileInfo)
+            {
+                CreateItem(ItemType.File, file.Name);
+            }
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
     private void OnItemClick(GameObject item)
@@ -48,16 +66,16 @@ public class OpenFileDialog : MonoBehaviour
             if (lastSlashPos != -1)
             {
                 currentDirectory = currentDirectory.Substring(0, lastSlashPos);
-                Debug.Log(currentDirectory);
-                Setup();
+                ClearList();
+                PopulateList();
             }
         }
 
         if (itemType == ItemType.Directory)
         {
             currentDirectory += Path.DirectorySeparatorChar + item.GetComponentInChildren<TextMeshProUGUI>().text;
-            Debug.Log(currentDirectory);
-            Setup();
+            ClearList();
+            PopulateList();
         }
     }
 
@@ -73,7 +91,10 @@ public class OpenFileDialog : MonoBehaviour
 
     private void ClearList()
     {
-        foreach (var item in items) Destroy(item);
+        foreach (var item in items)
+        {
+            Destroy(item);
+        }
 
         items.Clear();
     }

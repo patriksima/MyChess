@@ -72,7 +72,10 @@ public class PieceManager : MonoBehaviour
 
     private void SetInteractive(List<Piece> allPieces, bool value)
     {
-        foreach (var piece in allPieces) piece.enabled = true;
+        foreach (var piece in allPieces)
+        {
+            piece.enabled = true;
+        }
     }
 
     public void SwitchSides(Color color)
@@ -93,7 +96,14 @@ public class PieceManager : MonoBehaviour
 
     public void ResetPieces()
     {
-        foreach (var whitePiece in whitePieces) whitePiece.Reset();
-        foreach (var blackPiece in blackPieces) blackPiece.Reset();
+        foreach (var whitePiece in whitePieces)
+        {
+            whitePiece.Reset();
+        }
+
+        foreach (var blackPiece in blackPieces)
+        {
+            blackPiece.Reset();
+        }
     }
 }

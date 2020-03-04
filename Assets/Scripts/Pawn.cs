@@ -42,8 +42,12 @@ public class Pawn : Piece
         MatchesState(currentX - movement.z, currentY + movement.z, CellState.Enemy);
 
         if (MatchesState(currentX, currentY + movement.y, CellState.Free))
+        {
             if (isFirstMove)
+            {
                 MatchesState(currentX, currentY + movement.y * 2, CellState.Free);
+            }
+        }
 
         MatchesState(currentX + movement.z, currentY + movement.z, CellState.Enemy);
     }
