@@ -21,15 +21,6 @@ public class Cell : MonoBehaviour
         BoardPosition = newBoardPosition;
         Board = newBoard;
         RectTransform = GetComponent<RectTransform>();
-/*
-        var d = new GameObject("Cell" + newBoardPosition.ToString());
-        d.transform.SetParent(transform);
-        d.transform.position = transform.position;
-        Text t = d.AddComponent<Text>();
-        t.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-        t.fontSize = 20;
-        t.color = Color.red;
-        t.text = newBoardPosition.ToString();*/
     }
 
     public void RemovePiece()
