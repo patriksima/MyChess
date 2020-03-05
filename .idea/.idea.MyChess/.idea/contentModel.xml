@@ -20,6 +20,7 @@
           <e p="MyCursor.cs" t="Include" />
           <e p="OpenFileDialog.cs" t="Include" />
           <e p="Pawn.cs" t="Include" />
+          <e p="PGNListener.cs" t="Include" />
           <e p="PGNReader" t="Include">
             <e p="PGNBaseListener.cs" t="Include" />
             <e p="PGNLexer.cs" t="Include" />
@@ -30,6 +31,7 @@
           <e p="PieceManager.cs" t="Include" />
           <e p="Queen.cs" t="Include" />
           <e p="Rook.cs" t="Include" />
+          <e p="SIngleton.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Examples &amp; Extras" t="Include">

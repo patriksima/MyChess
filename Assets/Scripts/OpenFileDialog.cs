@@ -80,8 +80,10 @@ public class OpenFileDialog : MonoBehaviour
 
         if (itemType == ItemType.File)
         {
-            GameManager.LoadFile(currentDirectory + Path.DirectorySeparatorChar +
-                                 item.GetComponentInChildren<TextMeshProUGUI>().text);
+            GameManager.Instance.LoadFile(currentDirectory + Path.DirectorySeparatorChar +
+                                          item.GetComponentInChildren<TextMeshProUGUI>().text);
+            // TODO: Progress loading bar
+            gameObject.SetActive(false);
         }
     }
 
