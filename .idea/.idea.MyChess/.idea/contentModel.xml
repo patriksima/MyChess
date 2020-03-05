@@ -13,6 +13,7 @@
           <e p="Cell.cs" t="Include" />
           <e p="FileItem.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="Hyperlinks.cs" t="Include" />
           <e p="King.cs" t="Include" />
           <e p="Knight.cs" t="Include" />
           <e p="MenuManager.cs" t="Include" />
