@@ -20,6 +20,12 @@
           <e p="MyCursor.cs" t="Include" />
           <e p="OpenFileDialog.cs" t="Include" />
           <e p="Pawn.cs" t="Include" />
+          <e p="PGNReader" t="Include">
+            <e p="PGNBaseListener.cs" t="Include" />
+            <e p="PGNLexer.cs" t="Include" />
+            <e p="PGNListener.cs" t="Include" />
+            <e p="PGNParser.cs" t="Include" />
+          </e>
           <e p="Piece.cs" t="Include" />
           <e p="PieceManager.cs" t="Include" />
           <e p="Queen.cs" t="Include" />

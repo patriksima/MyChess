@@ -1073,6 +1073,7 @@ GameObject:
   - component: {fileID: 384564649}
   - component: {fileID: 384564651}
   - component: {fileID: 384564650}
+  - component: {fileID: 384564652}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1118,7 +1119,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "[Event \"?\"]\n[Site \"https://lichess.org/aozYo6mO\"]\n[Date \"2020.02.19\"]\n[Round
+  m_text: "[Event \"?\"]\n[Site \"<link=\"https://lichess.org/aozYo6mO\">https://lichess.org/aozYo6mO</link>\"]\n[Date
+    \"2020.02.19\"]\n[Round \"?\"]\n[White \"\u0160\xEDma, Patrik\"]\n[Black \"Hampel,
+    Rudolf\"]\n[Result \"1-0\"]\n[WhiteElo \"?\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl
+    \"-\"]\n[ECO \"D02\"]\n[Opening \"Queen's Pawn Game: London System\"]\n[Termination
+    \"Normal\"]\n\n1. <link=Pd4>d4</link> d5 2. Nf3 Nf6 3. Bf4 e6 4. e3 Nbd7 5. Bd3
+    Be7 6. h3 O-O 7. Nbd2 c5 8. c3 b6 9. Qe2 Bb7 10. O-O Ne4 11. Rad1 f5 12. Ne5
+    Nxe5 13. dxe5 Qe8 14. Bh2 Kh8 15. Bxe4 fxe4 16. f3 exf3 17. Rxf3 Qg6 18. Rg3
+    Qh6 19. Rg4 Bg5 20. Bf4 Bxf4 21. exf4 Rxf4 22. Rxf4 Qxf4 23. Rf1 Qa4 24. Rf7
+    Qc6 25. Qg4 Rg8 26. Nf3 a5 27. Nh4 h6 28. Ng6+ Kh7 29. Nf8+ Kh8 30. Qg6 1-0\n\n[Event
+    \"?\"]\n[Site \"https://lichess.org/aozYo6mO\"]\n[Date \"2020.02.19\"]\n[Round
     \"?\"]\n[White \"\u0160\xEDma, Patrik\"]\n[Black \"Hampel, Rudolf\"]\n[Result
     \"1-0\"]\n[WhiteElo \"?\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl
     \"-\"]\n[ECO \"D02\"]\n[Opening \"Queen's Pawn Game: London System\"]\n[Termination
@@ -1126,16 +1136,7 @@ MonoBehaviour:
     7. Nbd2 c5 8. c3 b6 9. Qe2 Bb7 10. O-O Ne4 11. Rad1 f5 12. Ne5 Nxe5 13. dxe5
     Qe8 14. Bh2 Kh8 15. Bxe4 fxe4 16. f3 exf3 17. Rxf3 Qg6 18. Rg3 Qh6 19. Rg4 Bg5
     20. Bf4 Bxf4 21. exf4 Rxf4 22. Rxf4 Qxf4 23. Rf1 Qa4 24. Rf7 Qc6 25. Qg4 Rg8
-    26. Nf3 a5 27. Nh4 h6 28. Ng6+ Kh7 29. Nf8+ Kh8 30. Qg6 1-0\n\n[Event \"?\"]\n[Site
-    \"https://lichess.org/aozYo6mO\"]\n[Date \"2020.02.19\"]\n[Round \"?\"]\n[White
-    \"\u0160\xEDma, Patrik\"]\n[Black \"Hampel, Rudolf\"]\n[Result \"1-0\"]\n[WhiteElo
-    \"?\"]\n[BlackElo \"?\"]\n[Variant \"Standard\"]\n[TimeControl \"-\"]\n[ECO \"D02\"]\n[Opening
-    \"Queen's Pawn Game: London System\"]\n[Termination \"Normal\"]\n\n1. d4 d5 2.
-    Nf3 Nf6 3. Bf4 e6 4. e3 Nbd7 5. Bd3 Be7 6. h3 O-O 7. Nbd2 c5 8. c3 b6 9. Qe2
-    Bb7 10. O-O Ne4 11. Rad1 f5 12. Ne5 Nxe5 13. dxe5 Qe8 14. Bh2 Kh8 15. Bxe4 fxe4
-    16. f3 exf3 17. Rxf3 Qg6 18. Rg3 Qh6 19. Rg4 Bg5 20. Bf4 Bxf4 21. exf4 Rxf4 22.
-    Rxf4 Qxf4 23. Rf1 Qa4 24. Rf7 Qc6 25. Qg4 Rg8 26. Nf3 a5 27. Nh4 h6 28. Ng6+
-    Kh7 29. Nf8+ Kh8 30. Qg6 1-0\n\nEND!!!"
+    26. Nf3 a5 27. Nh4 h6 28. Ng6+ Kh7 29. Nf8+ Kh8 30. Qg6 1-0\n\nEND!!!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1208,7 +1209,7 @@ MonoBehaviour:
     spriteCount: 0
     spaceCount: 252
     wordCount: 251
-    linkCount: 0
+    linkCount: 2
     lineCount: 45
     pageCount: 1
     materialCount: 2
@@ -1235,6 +1236,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384564648}
   m_CullTransparentMesh: 0
+--- !u!114 &384564652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384564648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c04d21eba8e9fb44b0abf6ff8bd53c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &426130592
 GameObject:
   m_ObjectHideFlags: 0
