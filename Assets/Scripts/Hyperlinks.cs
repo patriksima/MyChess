@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -11,6 +9,42 @@ public class Hyperlinks : MonoBehaviour, IPointerClickHandler
 {
     private Camera _camera;
     private TextMeshProUGUI _textMeshProUgui;
+
+    /*
+     * Thanks to https://deltadreamgames.com/unity-tmp-hyperlinks/
+     */
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        var linkIndex = TMP_TextUtilities.FindIntersectingLink(_textMeshProUgui, Input.mousePosition, _camera);
+        if (linkIndex == -1)
+        {
+            return;
+        }
+
+        // was a link clicked?
+        var linkInfo = _textMeshProUgui.textInfo.linkInfo[linkIndex];
+        var linkId = linkInfo.GetLinkID();
+
+        if (linkId.StartsWith("http"))
+        {
+            // open the link id as a url, which is the metadata we added in the text field
+            Application.OpenURL(linkId);
+        }
+        else
+        {
+            Debug.Log("Click to " + linkId);
+
+            var game = new Dictionary<int, string[]>();
+            game.Add(1, new[] {"d4", "d5"});
+            game.Add(2, new[] {"Nf3", "Nf6"});
+
+            var side = linkId.Substring(0, 1);
+            var moveNumber = int.Parse(linkId.Substring(1, 1));
+            var move = linkId.Substring(2, 3);
+
+            Debug.Log("Founded move: " + string.Join(" ", game[moveNumber]));
+        }
+    }
 
     private void Start()
     {
@@ -36,32 +70,6 @@ public class Hyperlinks : MonoBehaviour, IPointerClickHandler
         if (isHoveringOver && linkIndex != -1)
         {
             SetLinkToColor(linkIndex, new Color32(255, 122, 57, 255));
-        }
-    }
-
-    /*
-     * Thanks to https://deltadreamgames.com/unity-tmp-hyperlinks/
-     */
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        var linkIndex = TMP_TextUtilities.FindIntersectingLink(_textMeshProUgui, Input.mousePosition, _camera);
-        if (linkIndex == -1)
-        {
-            return;
-        }
-
-        // was a link clicked?
-        var linkInfo = _textMeshProUgui.textInfo.linkInfo[linkIndex];
-        var linkId = linkInfo.GetLinkID();
-
-        if (linkId.StartsWith("http"))
-        {
-            // open the link id as a url, which is the metadata we added in the text field
-            Application.OpenURL(linkId);
-        }
-        else
-        {
-            Debug.Log("Click to " + linkId);
         }
     }
 
