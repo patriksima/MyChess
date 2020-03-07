@@ -76,7 +76,7 @@ namespace ChessBoard
         {
             foreach (var piece in allPieces)
             {
-                piece.enabled = true;
+                piece.enabled = value;
             }
         }
 
