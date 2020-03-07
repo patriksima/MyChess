@@ -28,7 +28,6 @@ using IToken = Antlr4.Runtime.IToken;
 /// <see cref="PGNParser"/>.
 /// </summary>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.8")]
-[System.CLSCompliant(false)]
 public interface IPGNListener : IParseTreeListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="PGNParser.parse"/>.
