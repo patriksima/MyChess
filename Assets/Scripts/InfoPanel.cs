@@ -22,8 +22,8 @@
             var movesText = "";
             foreach (var move in gameData.Moves)
             {
-                var m1 = move.Value[0];
-                var m2 = move.Value[1];
+                var m1 = move.Value.White;
+                var m2 = move.Value.Black;
 
                 // if pawn move, add pawn symbol
                 if (m1.Length == 2)
@@ -37,8 +37,8 @@
                 }
 
                 movesText += move.Key + ". ";
-                movesText += "<link=W" + move.Key + m1 + ">" + move.Value[0] + "</link> ";
-                movesText += "<link=B" + move.Key + m2 + ">" + move.Value[1] + "</link> ";
+                movesText += "<link=W" + move.Key + m1 + ">" + move.Value.White + "</link> ";
+                movesText += "<link=B" + move.Key + m2 + ">" + move.Value.Black + "</link> ";
             }
 
             mainContent.text = movesText;

@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 namespace ChessBoard
 {
-    public abstract class Piece : EventTrigger
+    public interface IPiece {
+        // dummy interface
+    }
+    
+    public abstract class Piece : EventTrigger, IPiece
     {
         protected Cell currentCell;
         protected List<Cell> highlightedCells = new List<Cell>();

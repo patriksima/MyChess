@@ -1,4 +1,10 @@
-﻿namespace MyChess
+﻿using System.Collections;
+using System.Linq;
+using System.Text;
+using ChessBoard;
+using UnityEngine;
+
+namespace MyChess
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +16,87 @@
         Win,
         Draw,
         Loss
+    }
+
+    public class MovePair
+    {
+        private string _white;
+        private Vector2Int _whiteVec;
+        private string _black;
+        private Vector2Int _blackVec;
+
+        public string White => _white;
+
+        public string Black => _black;
+
+        private MovePair()
+        {
+            _white = "";
+            _black = "";
+        }
+
+        public void AddHalfMove(string move)
+        {
+            if (String.IsNullOrEmpty(_white))
+            {
+                _white = move;
+            }
+            else if (string.IsNullOrEmpty(_black))
+            {
+                _black = move;
+            }
+        }
+
+        public static Vector2Int SanToVector(string san)
+        {
+            Vector2Int vector = new Vector2Int();
+
+            // Pawn
+            if (san.Length == 2)
+            {
+                san = "P" + san;
+            }
+
+            vector.x = "abcdefgh".IndexOf(san.Substring(1,1), StringComparison.Ordinal);
+            vector.y = int.Parse(san.Substring(2, 1));
+
+            return vector;
+        }
+
+        public static string VectorToSan(Vector2Int vector, IPiece piece)
+        {
+            string san;
+
+            var rank = (vector.y + 1).ToString();
+            var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[vector.x];
+
+            switch (piece)
+            {
+                case Pawn pawn:
+                    san = "";
+                    break;
+                case Rook rook:
+                    san = "R";
+                    break;
+                case Knight knight:
+                    san = "N";
+                    break;
+                case Bishop bishop:
+                    san = "B";
+                    break;
+                case Queen queen:
+                    san = "Q";
+                    break;
+                case King king:
+                    san = "K";
+                    break;
+                default:
+                    san = "";
+                    break;
+            }
+
+            return san + file + rank;
+        }
     }
 
     public class GameData
@@ -25,7 +112,23 @@
 
         public GameResult Result { get; private set; }
 
-        public Dictionary<int, List<string>> Moves { get; set; } = new Dictionary<int, List<string>>();
+
+        public Dictionary<int, MovePair> Moves { get; } = new Dictionary<int, MovePair>();
+
+        public MovePair GetMovePair(int moveNumber)
+        {
+            return Moves[moveNumber];
+        }
+
+        public void SetMovePair(int moveNumber, MovePair pair)
+        {
+            Moves[moveNumber] = pair;
+        }
+
+        public int GetLastMoveNumber()
+        {
+            return (Moves.Count == 0) ? 0 : Moves.Last().Key;
+        }
 
         public string GetResultAsText()
         {

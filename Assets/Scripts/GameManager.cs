@@ -1,8 +1,8 @@
-﻿namespace MyChess
-{
-    using ChessBoard;
-    using UnityEngine;
+﻿using ChessBoard;
+using UnityEngine;
 
+namespace MyChess
+{
     public class GameManager : Singleton<GameManager>
     {
         [SerializeField] private Board board;

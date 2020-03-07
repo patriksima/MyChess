@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyChess;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ChessBoard
@@ -43,6 +44,29 @@ namespace ChessBoard
             }
 
             MatchesState(currentX + movement.z, currentY + movement.z, CellState.Enemy);
+
+            if (isFirstMove)
+            {
+                return;
+            }
+            
+            // enpassant possibility hightlights cells
+            var gd = GameManager.Instance.GameData;
+            var lm = gd.GetLastMoveNumber();
+            Debug.Log("Last move no: " + lm);
+            if (lm > 1)
+            {
+                var m = gd.GetMovePair(lm - 1);
+                if (TeamColor == Color.white)
+                {
+                    // check black pawn on sides
+                    
+                }
+                else
+                {
+                    // check white pawn on sides
+                }
+            }
         }
     }
 }

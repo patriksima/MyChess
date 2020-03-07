@@ -124,7 +124,7 @@ namespace MyChess
                 walker.Walk(listener, context);
 
                 // Copy moves from Listener to Game Manager
-                GameManager.Instance.GameData.Moves = new Dictionary<int, List<string>>(listener.Moves);
+                //GameManager.Instance.GameData.Moves = new Dictionary<int, List<string>>(listener.Moves);
                 GameManager.Instance.GameData.SetTags(listener.Tags);
             }
             catch (Exception e)
