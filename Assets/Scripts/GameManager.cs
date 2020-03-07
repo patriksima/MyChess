@@ -1,33 +1,37 @@
-﻿using UnityEngine;
-
-public class GameManager : Singleton<GameManager>
+﻿namespace MyChess
 {
-    [SerializeField] private Board board;
-    [SerializeField] private InfoPanel infoPanel;
-    [SerializeField] private PieceManager pieceManager;
+    using ChessBoard;
+    using UnityEngine;
 
-    public InfoPanel InfoPanel => infoPanel;
-
-    public GameData GameData { get; set; } = new GameData();
-
-    // Start is called before the first frame update
-    private void Start()
+    public class GameManager : Singleton<GameManager>
     {
-        board.Create();
-        pieceManager.Setup(board);
-    }
+        [SerializeField] private Board board;
+        [SerializeField] private InfoPanel infoPanel;
+        [SerializeField] private PieceManager pieceManager;
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetKey("escape"))
+        public InfoPanel InfoPanel => infoPanel;
+
+        public GameData GameData { get; set; } = new GameData();
+
+        // Start is called before the first frame update
+        private void Start()
         {
-            Quit();
+            board.Create();
+            pieceManager.Setup(board);
         }
-    }
 
-    public void Quit()
-    {
-        Application.Quit();
+        // Update is called once per frame
+        private void Update()
+        {
+            if (Input.GetKey("escape"))
+            {
+                Quit();
+            }
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
     }
 }

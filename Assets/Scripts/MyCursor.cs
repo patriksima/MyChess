@@ -1,12 +1,15 @@
-﻿using UnityEngine;
-
-public class MyCursor : MonoBehaviour
+﻿namespace MyChess
 {
-    [SerializeField] private Texture2D cursorTexture;
+    using UnityEngine;
 
-    // Start is called before the first frame update
-    private void Start()
+    public class MyCursor : MonoBehaviour
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        [SerializeField] private Texture2D cursorTexture;
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        }
     }
 }

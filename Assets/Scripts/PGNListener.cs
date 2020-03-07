@@ -1,43 +1,46 @@
-﻿using System.Collections.Generic;
-
-public class PGNListener : PGNBaseListener
+﻿namespace MyChess
 {
-    private int _lastMoveNumber;
-    private readonly List<string> _lastMoves = new List<string>();
+    using System.Collections.Generic;
 
-    // Game moves
+    public class PGNListener : PGNBaseListener
+    {
+        private int _lastMoveNumber;
+        private readonly List<string> _lastMoves = new List<string>();
 
-    // Game tags
+        // Game moves
+
+        // Game tags
 
 
-    public Dictionary<int, List<string>> Moves { get; } = new Dictionary<int, List<string>>();
+        public Dictionary<int, List<string>> Moves { get; } = new Dictionary<int, List<string>>();
 
-    public Dictionary<string, string> Tags { get; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Tags { get; } = new Dictionary<string, string>();
 
-    /**
+        /**
      * Game Info Tag like [Event "Event Name"], see http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c2.3
      */
-    public override void EnterTag_pair(PGNParser.Tag_pairContext context)
-    {
-        Tags.Add(context.tag_name().GetText(), context.tag_value().GetText());
-    }
-
-    public override void EnterMove_number_indication(PGNParser.Move_number_indicationContext context)
-    {
-        if (_lastMoveNumber != 0)
+        public override void EnterTag_pair(PGNParser.Tag_pairContext context)
         {
-            Moves.Add(_lastMoveNumber, new List<string>(_lastMoves));
-            _lastMoves.Clear();
+            Tags.Add(context.tag_name().GetText(), context.tag_value().GetText());
         }
 
-        _lastMoveNumber++;
-    }
-
-    public override void EnterElement(PGNParser.ElementContext context)
-    {
-        if (context.san_move() != null)
+        public override void EnterMove_number_indication(PGNParser.Move_number_indicationContext context)
         {
-            _lastMoves.Add(context.san_move().GetText());
+            if (_lastMoveNumber != 0)
+            {
+                Moves.Add(_lastMoveNumber, new List<string>(_lastMoves));
+                _lastMoves.Clear();
+            }
+
+            _lastMoveNumber++;
+        }
+
+        public override void EnterElement(PGNParser.ElementContext context)
+        {
+            if (context.san_move() != null)
+            {
+                _lastMoves.Add(context.san_move().GetText());
+            }
         }
     }
 }

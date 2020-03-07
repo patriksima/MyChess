@@ -1,11 +1,14 @@
-﻿using UnityEngine;
-
-public class Button : MonoBehaviour
+﻿namespace MyChess
 {
-    [SerializeField] private GameObject panel;
+    using UnityEngine;
 
-    public void TogglePanel()
+    public class Button : MonoBehaviour
     {
-        panel.SetActive(!panel.activeSelf);
+        [SerializeField] private GameObject panel;
+
+        public void TogglePanel()
+        {
+            panel.SetActive(!panel.activeSelf);
+        }
     }
 }

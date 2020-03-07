@@ -1,44 +1,47 @@
-﻿using TMPro;
-using UnityEngine;
-
-public class InfoPanel : MonoBehaviour
+﻿namespace MyChess
 {
-    [SerializeField] private TextMeshProUGUI gameScore;
-    [SerializeField] private TextMeshProUGUI mainContent;
-    [SerializeField] private TextMeshProUGUI playerBlack;
-    [SerializeField] private TextMeshProUGUI playerWhite;
+    using TMPro;
+    using UnityEngine;
 
-    public void ShowGameData()
+    public class InfoPanel : MonoBehaviour
     {
-        var gameData = GameManager.Instance.GameData;
+        [SerializeField] private TextMeshProUGUI gameScore;
+        [SerializeField] private TextMeshProUGUI mainContent;
+        [SerializeField] private TextMeshProUGUI playerBlack;
+        [SerializeField] private TextMeshProUGUI playerWhite;
 
-        playerWhite.text = gameData.White;
-        playerBlack.text = gameData.Black;
-        gameScore.text = gameData.GetResultAsText();
-
-        // build game string
-        var movesText = "";
-        foreach (var move in gameData.Moves)
+        public void ShowGameData()
         {
-            var m1 = move.Value[0];
-            var m2 = move.Value[1];
+            var gameData = GameManager.Instance.GameData;
 
-            // if pawn move, add pawn symbol
-            if (m1.Length == 2)
+            playerWhite.text = gameData.White;
+            playerBlack.text = gameData.Black;
+            gameScore.text = gameData.GetResultAsText();
+
+            // build game string
+            var movesText = "";
+            foreach (var move in gameData.Moves)
             {
-                m1 = "P" + m1;
+                var m1 = move.Value[0];
+                var m2 = move.Value[1];
+
+                // if pawn move, add pawn symbol
+                if (m1.Length == 2)
+                {
+                    m1 = "P" + m1;
+                }
+
+                if (m2.Length == 2)
+                {
+                    m2 = "P" + m2;
+                }
+
+                movesText += move.Key + ". ";
+                movesText += "<link=W" + move.Key + m1 + ">" + move.Value[0] + "</link> ";
+                movesText += "<link=B" + move.Key + m2 + ">" + move.Value[1] + "</link> ";
             }
 
-            if (m2.Length == 2)
-            {
-                m2 = "P" + m2;
-            }
-
-            movesText += move.Key + ". ";
-            movesText += "<link=W" + move.Key + m1 + ">" + move.Value[0] + "</link> ";
-            movesText += "<link=B" + move.Key + m2 + ">" + move.Value[1] + "</link> ";
+            mainContent.text = movesText;
         }
-
-        mainContent.text = movesText;
     }
 }

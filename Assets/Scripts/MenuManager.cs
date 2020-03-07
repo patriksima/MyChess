@@ -1,5 +1,8 @@
-﻿using UnityEngine;
-
-public class MenuManager : MonoBehaviour
+﻿namespace MyChess
 {
+    using UnityEngine;
+
+    public class MenuManager : MonoBehaviour
+    {
+    }
 }

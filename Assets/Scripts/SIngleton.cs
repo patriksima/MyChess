@@ -1,16 +1,19 @@
-﻿using System;
-using UnityEngine;
-
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+﻿namespace MyChess
 {
-    private static readonly Lazy<T> LazyInstance = new Lazy<T>(CreateSingleton);
+    using System;
+    using UnityEngine;
 
-    public static T Instance => LazyInstance.Value;
-
-    private static T CreateSingleton()
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        var instance = FindObjectOfType<T>(); // because it already exists in scene
-        DontDestroyOnLoad(instance.gameObject);
-        return instance;
+        private static readonly Lazy<T> LazyInstance = new Lazy<T>(CreateSingleton);
+
+        public static T Instance => LazyInstance.Value;
+
+        private static T CreateSingleton()
+        {
+            var instance = FindObjectOfType<T>(); // because it already exists in scene
+            DontDestroyOnLoad(instance.gameObject);
+            return instance;
+        }
     }
 }
