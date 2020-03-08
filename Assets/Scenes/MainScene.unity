@@ -706,6 +706,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6804638571331329079, guid: 284f71c84c3669c4880d75fb8a1023e7,
+        type: 3}
+      propertyPath: whiteCellColor.rgba
+      value: 4290501862
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804638571331329079, guid: 284f71c84c3669c4880d75fb8a1023e7,
+        type: 3}
+      propertyPath: blackCellColor.rgba
+      value: 4288065978
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 284f71c84c3669c4880d75fb8a1023e7, type: 3}
 --- !u!224 &152575929 stripped
@@ -4872,6 +4882,48 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: _pawnPrefab
+      value: 
+      objectReference: {fileID: 7779206494403013632, guid: 086100ac51439c140bfa3153fb2a900f,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: pawnPrefab
+      value: 
+      objectReference: {fileID: 7779206494403013632, guid: 086100ac51439c140bfa3153fb2a900f,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: rookPrefab
+      value: 
+      objectReference: {fileID: 4030265321060485448, guid: 008474f2043e14342ad3717b2f0be340,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: knightPrefab
+      value: 
+      objectReference: {fileID: 5583324996929123065, guid: d3b8c1414cf78364980763951e5e50f8,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: bishopPrefab
+      value: 
+      objectReference: {fileID: 5947055288701914445, guid: 950a6bbd45cd0c044bf87435d3351aa6,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: queenPrefab
+      value: 
+      objectReference: {fileID: 4197877595987230197, guid: 6061ee99cdab4e045bae3a2d3161f35a,
+        type: 3}
+    - target: {fileID: 2321611203687700940, guid: be431dde475c47c42b703a37ae651ed2,
+        type: 3}
+      propertyPath: kingPrefab
+      value: 
+      objectReference: {fileID: 6141041269239229944, guid: a9d11504ce830ca41b39349245e6b8fb,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be431dde475c47c42b703a37ae651ed2, type: 3}
 --- !u!224 &1939486649 stripped

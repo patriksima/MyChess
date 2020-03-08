@@ -3,13 +3,12 @@ using System.Linq;
 using System.Text;
 using ChessBoard;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace MyChess
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-
     public enum GameResult
     {
         None,
@@ -18,85 +17,106 @@ namespace MyChess
         Loss
     }
 
-    public class MovePair
+    public class Move
     {
-        private string _white;
-        private Vector2Int _whiteVec;
-        private string _black;
-        private Vector2Int _blackVec;
+        private Vector2Int _vector;
+        private IPiece _piece;
 
-        public string White => _white;
+        public Vector2Int Vector => _vector;
 
-        public string Black => _black;
+        public IPiece Piece => _piece;
 
-        private MovePair()
+        public Move(Vector2Int vector, IPiece piece)
         {
-            _white = "";
-            _black = "";
+            _vector = vector;
+            _piece = piece;
         }
 
-        public void AddHalfMove(string move)
+        private string GetPieceAsSymbol()
         {
-            if (String.IsNullOrEmpty(_white))
-            {
-                _white = move;
-            }
-            else if (string.IsNullOrEmpty(_black))
-            {
-                _black = move;
-            }
-        }
+            string symbol;
 
-        public static Vector2Int SanToVector(string san)
-        {
-            Vector2Int vector = new Vector2Int();
-
-            // Pawn
-            if (san.Length == 2)
-            {
-                san = "P" + san;
-            }
-
-            vector.x = "abcdefgh".IndexOf(san.Substring(1,1), StringComparison.Ordinal);
-            vector.y = int.Parse(san.Substring(2, 1));
-
-            return vector;
-        }
-
-        public static string VectorToSan(Vector2Int vector, IPiece piece)
-        {
-            string san;
-
-            var rank = (vector.y + 1).ToString();
-            var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[vector.x];
-
-            switch (piece)
+            switch (_piece)
             {
                 case Pawn pawn:
-                    san = "";
+                    symbol = "";
                     break;
                 case Rook rook:
-                    san = "R";
+                    symbol = "R";
                     break;
                 case Knight knight:
-                    san = "N";
+                    symbol = "N";
                     break;
                 case Bishop bishop:
-                    san = "B";
+                    symbol = "B";
                     break;
                 case Queen queen:
-                    san = "Q";
+                    symbol = "Q";
                     break;
                 case King king:
-                    san = "K";
+                    symbol = "K";
                     break;
                 default:
-                    san = "";
+                    symbol = "";
                     break;
             }
 
-            return san + file + rank;
+            return symbol;
         }
+
+        /// <summary>
+        /// Convert internal representation to SAN annotation (eg. Nf3, Kf1, d4)
+        /// </summary>
+        /// <returns>string</returns>
+        public string ToSan()
+        {
+            var rank = (_vector.y + 1).ToString();
+            var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[_vector.x];
+            var symbol = GetPieceAsSymbol();
+
+            return symbol + file + rank;
+        }
+    }
+
+    public class MovePair
+    {
+        private Move _white;
+        private Move _black;
+
+        public Move White => _white;
+
+        public Move Black => _black;
+
+        /// <summary>
+        /// Add half move
+        /// </summary>
+        /// <param name="move"></param>
+        /// <returns>bool</returns>
+        public bool AddHalfMove(Move move)
+        {
+            var success = false;
+
+            if (_white == null)
+            {
+                _white = move;
+                success = true;
+            }
+            else if (_black == null)
+            {
+                _black = move;
+                success = true;
+            }
+
+            return success;
+        }
+    }
+
+    public enum CastleStatus
+    {
+        NONE,
+        SHORT,
+        LONG,
+        BOTH
     }
 
     public class GameData
@@ -115,14 +135,51 @@ namespace MyChess
 
         public Dictionary<int, MovePair> Moves { get; } = new Dictionary<int, MovePair>();
 
+        #region CustomNonPGN
+
+        private CastleStatus _whiteCastleStatus;
+
+        public CastleStatus WhiteCastleStatus => _whiteCastleStatus;
+
+        private CastleStatus _blackCastleStatus;
+        public CastleStatus BlackCastleStatus => _blackCastleStatus;
+
+        #endregion
+
         public MovePair GetMovePair(int moveNumber)
         {
             return Moves[moveNumber];
         }
 
-        public void SetMovePair(int moveNumber, MovePair pair)
+        public MovePair GetPreviousMovePair()
         {
-            Moves[moveNumber] = pair;
+            var lastMoveNumber = GetLastMoveNumber();
+            return lastMoveNumber > 1 ? GetMovePair(lastMoveNumber - 1) : null;
+        }
+
+        public void AddHalfMove(Move move)
+        {
+            var lastMoveNumber = GetLastMoveNumber();
+            if (lastMoveNumber == 0)
+            {
+                var movePair = new MovePair();
+                movePair.AddHalfMove(move);
+                Moves.Add(1, movePair);
+            }
+            else
+            {
+                var movePair = Moves[lastMoveNumber];
+                var success = movePair.AddHalfMove(move);
+                if (!success)
+                {
+                    movePair = new MovePair();
+                    movePair.AddHalfMove(move);
+                    Moves.Add(lastMoveNumber + 1, movePair);
+                }
+            }
+
+            Debug.Log(Moves.Last().Key + "." + Moves.Last().Value?.White?.ToSan() + " " +
+                      Moves.Last().Value?.Black?.ToSan());
         }
 
         public int GetLastMoveNumber()
@@ -130,6 +187,10 @@ namespace MyChess
             return (Moves.Count == 0) ? 0 : Moves.Last().Key;
         }
 
+        /// <summary>
+        /// Converts result enum to human readable text
+        /// </summary>
+        /// <returns>string</returns>
         public string GetResultAsText()
         {
             var text = "";
@@ -152,9 +213,9 @@ namespace MyChess
             return text;
         }
 
-        /**
-     * Parse list of tags from PGN header
-     */
+        /// <summary>
+        /// Parse list of tags from PGN header
+        /// </summary>
         public void SetTags(Dictionary<string, string> tags)
         {
             foreach (var tagPair in tags)

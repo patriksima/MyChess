@@ -1,28 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using ChessBoard;
+using MyChess;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+using NSubstitute;
 
 namespace Tests
 {
     public class AnnotationTest
     {
-        // A Test behaves as an ordinary method
+        /// <summary>
+        /// Try add one half move to GameData 1. d4
+        /// </summary>
         [Test]
-        public void NewTestScriptSimplePasses()
+        public void WhitePawnOneOneStep()
         {
+            ICell cell = Substitute.For<ICell>();
+            cell.BoardPosition = new Vector2Int(1,4);
+            cell.CurrentPiece = Substitute.For<Pawn>();
+            //cell.Board.AllCells;
             
-        }
-
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator NewTestScriptWithEnumeratorPasses()
-        {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            
+            string san = AnnotationEngine.Instance.ToSan(cell, new Vector2Int(), null, Color.white, CastleStatus.NONE);
+            
+            Assert.AreEqual("d4", san);
         }
     }
 }

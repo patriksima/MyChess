@@ -60,7 +60,6 @@ namespace ChessBoard
                 if (TeamColor == Color.white)
                 {
                     // check black pawn on sides
-                    
                 }
                 else
                 {

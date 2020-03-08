@@ -17,7 +17,7 @@
             playerWhite.text = gameData.White;
             playerBlack.text = gameData.Black;
             gameScore.text = gameData.GetResultAsText();
-
+/*
             // build game string
             var movesText = "";
             foreach (var move in gameData.Moves)
@@ -41,7 +41,7 @@
                 movesText += "<link=B" + move.Key + m2 + ">" + move.Value.Black + "</link> ";
             }
 
-            mainContent.text = movesText;
+            mainContent.text = movesText;*/
         }
     }
 }

@@ -9,6 +9,8 @@ namespace MyChess
         [SerializeField] private InfoPanel infoPanel;
         [SerializeField] private PieceManager pieceManager;
 
+        public bool IsKingAlive { get; set; } = true;
+        
         public InfoPanel InfoPanel => infoPanel;
 
         public GameData GameData { get; set; } = new GameData();
@@ -16,7 +18,7 @@ namespace MyChess
         // Start is called before the first frame update
         private void Start()
         {
-            board.Create();
+            board.Setup();
             pieceManager.Setup(board);
         }
 

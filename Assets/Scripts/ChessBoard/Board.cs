@@ -5,67 +5,75 @@ namespace ChessBoard
 {
     public enum CellState
     {
-        None,
+        Free,
         Friendly,
         Enemy,
-        Free,
         OutOfBounds
     }
 
     public class Board : MonoBehaviour
     {
         [SerializeField] private GameObject cellPrefab;
+        [SerializeField] private Color32 whiteCellColor;
+        [SerializeField] private Color32 blackCellColor;
 
-        public Cell[,] AllCells { get; set; } = new Cell[8, 8];
+        public Cell[,] AllCells { get; } = new Cell[8, 8];
 
-        public void Create()
+        public void Setup()
         {
+            // Instantiate cell prefab
             for (var y = 0; y < 8; y++)
-            for (var x = 0; x < 8; x++)
             {
-                var cell = Instantiate(cellPrefab, transform);
-                var rect = cell.GetComponent<RectTransform>();
-                rect.anchoredPosition = new Vector2(x * 100 + 50, y * 100 + 50);
+                for (var x = 0; x < 8; x++)
+                {
+                    var cell = Instantiate(cellPrefab, transform);
+                    var rectTransform = cell.GetComponent<RectTransform>();
+                    var rect = rectTransform.rect;
+                    var w = rect.width;
+                    var h = rect.height;
+                    rectTransform.anchoredPosition = new Vector2(x * w + w * .5f, y * h + h * .5f);
 
-                AllCells[x, y] = cell.GetComponent<Cell>();
-                AllCells[x, y].Setup(new Vector2Int(x, y), this);
+                    AllCells[x, y] = cell.GetComponent<Cell>();
+                    AllCells[x, y].Setup(new Vector2Int(x, y), this);
+                }
             }
 
-            for (var x = 0; x < 8; x += 2)
+            // Setup cells color
+            var alternate = true;
             for (var y = 0; y < 8; y++)
             {
-                var offset = y % 2 == 0 ? 1 : 0;
-                var finalX = x + offset;
+                for (var x = 0; x < 8; x++)
+                {
+                    AllCells[x, y].GetComponent<Image>().color = (alternate) ? blackCellColor : whiteCellColor;
+                    alternate = !alternate;
+                }
 
-                AllCells[finalX, y].GetComponent<Image>().color = new Color32(230, 220, 187, 255);
+                alternate = !alternate;
             }
         }
 
         public CellState ValidateCell(int targetX, int targetY, Piece checkingPiece)
         {
-            if (targetX < 0 || targetX > 7)
-            {
-                return CellState.OutOfBounds;
-            }
-
-            if (targetY < 0 || targetY > 7)
+            if (targetX < 0 || targetX > 7 || targetY < 0 || targetY > 7)
             {
                 return CellState.OutOfBounds;
             }
 
             var targetCell = AllCells[targetX, targetY];
 
-            if (targetCell.CurrentPiece != null)
+            if (targetCell.CurrentPiece == null)
             {
-                if (checkingPiece.TeamColor == targetCell.CurrentPiece.TeamColor)
-                {
-                    return CellState.Friendly;
-                }
+                return CellState.Free;
+            }
 
-                if (checkingPiece.TeamColor != targetCell.CurrentPiece.TeamColor)
-                {
-                    return CellState.Enemy;
-                }
+            if (checkingPiece.TeamColor == targetCell.CurrentPiece.TeamColor)
+            {
+                return CellState.Friendly;
+            }
+
+            if (checkingPiece.TeamColor != targetCell.CurrentPiece.TeamColor)
+            {
+                return CellState.Enemy;
             }
 
             return CellState.Free;

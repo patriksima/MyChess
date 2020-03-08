@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyChess;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ChessBoard
@@ -20,7 +21,7 @@ namespace ChessBoard
         {
             base.Kill();
 
-            pieceManager.IsKingAlive = false;
+            GameManager.Instance.IsKingAlive = false;
         }
 
         protected override void CheckPathing()

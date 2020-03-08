@@ -9,6 +9,7 @@
           <e p="Annotation.cs" t="Include" />
           <e p="Button.cs" t="Include" />
           <e p="ChessBoard" t="Include">
+            <e p="AnnotationEngine.cs" t="Include" />
             <e p="Bishop.cs" t="Include" />
             <e p="Board.cs" t="Include" />
             <e p="Cell.cs" t="Include" />
@@ -19,6 +20,7 @@
             <e p="PieceManager.cs" t="Include" />
             <e p="Queen.cs" t="Include" />
             <e p="Rook.cs" t="Include" />
+            <e p="RulesEngine.cs" t="Include" />
           </e>
           <e p="ErrorDialog.cs" t="Include" />
           <e p="FileItem.cs" t="Include" />

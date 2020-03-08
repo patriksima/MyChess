@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using MyChess;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ChessBoard
 {
-    public interface IPiece {
+    public interface IPiece
+    {
         // dummy interface
     }
-    
+
     public abstract class Piece : EventTrigger, IPiece
     {
         protected Cell currentCell;
         protected List<Cell> highlightedCells = new List<Cell>();
-        protected bool isCastling;
         protected bool isFirstMove = true;
 
         protected Vector3Int movement = Vector3Int.one;
@@ -22,7 +23,7 @@ namespace ChessBoard
         protected RectTransform rect;
         protected Cell targetCell;
 
-        public Color TeamColor { get; set; } = Color.clear;
+        public Color TeamColor { get; set; }
 
         public bool IsFirstMove
         {
@@ -131,7 +132,7 @@ namespace ChessBoard
 
             foreach (var cell in highlightedCells)
             {
-                if (RectTransformUtility.RectangleContainsScreenPoint(cell.RectTransform, Input.mousePosition))
+                if (RectTransformUtility.RectangleContainsScreenPoint(cell.Rect, Input.mousePosition))
                 {
                     targetCell = cell;
                     break;
@@ -166,7 +167,8 @@ namespace ChessBoard
 
         protected virtual void Move()
         {
-            SanMove(currentCell, targetCell);
+            var prevCell = currentCell;
+            var targetPiece = targetCell.CurrentPiece;
 
             targetCell.RemovePiece();
             currentCell.CurrentPiece = null;
@@ -175,65 +177,13 @@ namespace ChessBoard
             transform.position = currentCell.transform.position;
             targetCell = null;
             isFirstMove = false;
-        }
 
-        protected void SanMove(Cell previous, Cell current)
-        {
-            Debug.Log("isCastling: " + isCastling + ", Piece prev: " + previous.CurrentPiece.GetType() +
-                      ", Type caller: " + GetType());
 
-            if (previous.CurrentPiece is King && current.BoardPosition.x - previous.BoardPosition.x == 2)
-            {
-                Debug.Log("Castle short 0-0");
-                isCastling = true;
-                Debug.Log(isCastling);
-                return;
-            }
+            // GameManager.Instance.GameData.AddHalfMove(new Move(currentCell.BoardPosition, currentCell.CurrentPiece));
 
-            if (previous.CurrentPiece is King && current.BoardPosition.x - previous.BoardPosition.x == -2)
-            {
-                isCastling = true;
-                Debug.Log("Castle long 0-0-0");
-                return;
-            }
-/*
-        if (isCastling && previous.CurrentPiece is Rook)
-        {
-            isCastling = false;
-            return;
-        }*/
-
-            string[] ranks = {"A", "B", "C", "D", "E", "F", "G", "H"};
-            var file = (current.BoardPosition.y + 1).ToString();
-            var rank = ranks[current.BoardPosition.x];
-            var piece = "";
-
-            switch (previous.CurrentPiece.GetType().Name)
-            {
-                case "Pawn":
-                    piece = "";
-                    break;
-                case "Rook":
-                    piece = "R";
-                    break;
-                case "Knight":
-                    piece = "N";
-                    break;
-                case "Bishop":
-                    piece = "B";
-                    break;
-                case "Queen":
-                    piece = "Q";
-                    break;
-                case "King":
-                    piece = "K";
-                    break;
-                default:
-                    piece = "";
-                    break;
-            }
-
-            Debug.Log("Move: " + piece + rank + file);
+            Debug.Log(
+                AnnotationEngine.Instance.ToSan(currentCell, prevCell.BoardPosition, targetPiece, TeamColor,
+                    CastleStatus.NONE));
         }
     }
 }
