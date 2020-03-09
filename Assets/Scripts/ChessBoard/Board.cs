@@ -11,6 +11,9 @@ namespace ChessBoard
         OutOfBounds
     }
 
+    /// <summary>
+    /// Create chess board from 64 white and black squares (cells)
+    /// </summary>
     public class Board : MonoBehaviour
     {
         [SerializeField] private GameObject cellPrefab;
@@ -19,9 +22,12 @@ namespace ChessBoard
 
         public Cell[,] AllCells { get; } = new Cell[8, 8];
 
+        /// <summary>
+        /// Setup the board
+        /// </summary>
         public void Setup()
         {
-            // Instantiate cell prefab
+            // Instantiate cell prefab and put them onto board
             for (var y = 0; y < 8; y++)
             {
                 for (var x = 0; x < 8; x++)
@@ -38,7 +44,7 @@ namespace ChessBoard
                 }
             }
 
-            // Setup cells color
+            // Setup cells color (alternating black/white cells)
             var alternate = true;
             for (var y = 0; y < 8; y++)
             {
@@ -52,7 +58,15 @@ namespace ChessBoard
             }
         }
 
-        public CellState ValidateCell(int targetX, int targetY, Piece checkingPiece)
+        /// <summary>
+        /// Check an return the cell state against given Piece
+        /// Free, Enemy, Friendly, Out of Bounds
+        /// </summary>
+        /// <param name="targetX"></param>
+        /// <param name="targetY"></param>
+        /// <param name="checkingPiece"></param>
+        /// <returns>CellState</returns>
+        public CellState GetCellState(int targetX, int targetY, Piece checkingPiece)
         {
             if (targetX < 0 || targetX > 7 || targetY < 0 || targetY > 7)
             {

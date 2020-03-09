@@ -14,9 +14,9 @@ namespace Tests
         [Test]
         public void WhitePawnOneOneStep()
         {
-            ICell cell = Substitute.For<ICell>();
-            cell.BoardPosition = new Vector2Int(1,4);
-            cell.CurrentPiece = Substitute.For<Pawn>();
+            Cell cell = Substitute.For<Cell>(new Vector2Int(1,4), null);
+            //cell.BoardPosition = new Vector2Int(1,4);
+            cell.SetPiece(Substitute.For<Pawn>());
             //cell.Board.AllCells;
             
             

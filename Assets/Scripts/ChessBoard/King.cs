@@ -81,7 +81,7 @@ namespace ChessBoard
             for (var i = 1; i < count; i++)
             {
                 var offsetX = currentX + i * direction;
-                var cellState = currentCell.Board.ValidateCell(offsetX, currentY, this);
+                var cellState = currentCell.Board.GetCellState(offsetX, currentY, this);
 
                 if (cellState != CellState.Free)
                 {

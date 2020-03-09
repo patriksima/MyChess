@@ -17,7 +17,7 @@ namespace ChessBoard
 
         public static AnnotationEngine Instance => _instance ?? (_instance = new AnnotationEngine());
 
-        private ICell _currCell;
+        private Cell _currCell;
         private Vector2Int _prevPos;
         private CastleStatus _castleStatus;
         private Color _teamColor;
@@ -31,7 +31,7 @@ namespace ChessBoard
         // - piece team color (white, black)
         // - player castling status (if player have castled short or long or none)
         // - board - for checking ambiguity (multiple choice)
-        public string ToSan(ICell currCell, Vector2Int prevPos, IPiece targetPiece, Color teamColor,
+        public string ToSan(Cell currCell, Vector2Int prevPos, IPiece targetPiece, Color teamColor,
             CastleStatus castleStatus)
         {
             _currCell = currCell;

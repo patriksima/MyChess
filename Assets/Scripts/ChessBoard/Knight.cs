@@ -35,7 +35,7 @@ namespace ChessBoard
 
         private void MatchesState(int targetX, int targetY)
         {
-            var cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
+            var cellState = currentCell.Board.GetCellState(targetX, targetY, this);
 
             if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
             {

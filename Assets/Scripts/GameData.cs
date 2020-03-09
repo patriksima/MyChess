@@ -74,7 +74,7 @@ namespace MyChess
             var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[_vector.x];
             var symbol = GetPieceAsSymbol();
 
-            return symbol + file + rank;
+            return $"{symbol}{file}{rank}";
         }
     }
 

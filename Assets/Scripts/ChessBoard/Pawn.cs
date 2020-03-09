@@ -17,7 +17,7 @@ namespace ChessBoard
 
         private bool MatchesState(int targetX, int targetY, CellState targetState)
         {
-            var cellState = currentCell.Board.ValidateCell(targetX, targetY, this);
+            var cellState = currentCell.Board.GetCellState(targetX, targetY, this);
 
             if (cellState == targetState)
             {

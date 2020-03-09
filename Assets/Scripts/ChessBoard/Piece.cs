@@ -39,12 +39,15 @@ namespace ChessBoard
             rect = GetComponent<RectTransform>();
         }
 
+        /// <summary>
+        /// Place a piece into a cell
+        /// </summary>
+        /// <param name="newCell"></param>
         public virtual void Place(Cell newCell)
         {
             currentCell = newCell;
             originalCell = newCell;
-            currentCell.CurrentPiece = this;
-
+            currentCell.SetPiece(this);
             transform.position = newCell.transform.position;
             gameObject.SetActive(true);
         }
@@ -59,7 +62,7 @@ namespace ChessBoard
                 currX += xDir;
                 currY += yDir;
 
-                var cellState = currentCell.Board.ValidateCell(currX, currY, this);
+                var cellState = currentCell.Board.GetCellState(currX, currY, this);
 
                 if (cellState == CellState.Enemy)
                 {
@@ -132,7 +135,7 @@ namespace ChessBoard
 
             foreach (var cell in highlightedCells)
             {
-                if (RectTransformUtility.RectangleContainsScreenPoint(cell.Rect, Input.mousePosition))
+                if (RectTransformUtility.RectangleContainsScreenPoint(cell.CellRectTransform, Input.mousePosition))
                 {
                     targetCell = cell;
                     break;
@@ -161,7 +164,7 @@ namespace ChessBoard
 
         public virtual void Kill()
         {
-            currentCell.CurrentPiece = null;
+            //currentCell.RemovePiece();
             gameObject.SetActive(false);
         }
 
@@ -170,11 +173,16 @@ namespace ChessBoard
             var prevCell = currentCell;
             var targetPiece = targetCell.CurrentPiece;
 
+            targetCell.KillPiece();
             targetCell.RemovePiece();
-            currentCell.CurrentPiece = null;
+            currentCell.RemovePiece();
+
             currentCell = targetCell;
-            currentCell.CurrentPiece = this;
+            currentCell.SetPiece(this);
+            gameObject.SetActive(true);
+
             transform.position = currentCell.transform.position;
+
             targetCell = null;
             isFirstMove = false;
 
