@@ -1,0 +1,2 @@
+# MyChess
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7eb02db0341b4b0285c0b29f43eab2be)](https://app.codacy.com/manual/patrik.sima/MyChess?utm_source=github.com&utm_medium=referral&utm_content=patriksima/MyChess&utm_campaign=Badge_Grade_Dashboard)
