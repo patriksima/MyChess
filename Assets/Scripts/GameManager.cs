@@ -1,4 +1,5 @@
-﻿using ChessBoard;
+﻿using System;
+using ChessBoard;
 using UnityEngine;
 
 namespace MyChess
@@ -10,10 +11,18 @@ namespace MyChess
         [SerializeField] private PieceManager pieceManager;
 
         public bool IsKingAlive { get; set; } = true;
-        
+
         public InfoPanel InfoPanel => infoPanel;
 
         public GameData GameData { get; set; } = new GameData();
+
+        private void Awake()
+        {
+            Piece.OnPieceMoved += piece =>
+            {
+                Debug.Log($"Piece: {piece.GetType()} moving to {piece.CurrentCell.BoardPosition.ToString()}");
+            };
+        }
 
         // Start is called before the first frame update
         private void Start()

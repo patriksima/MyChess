@@ -5,12 +5,11 @@ namespace ChessBoard
 {
     public class Queen : Piece
     {
-        public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
+        public override void Setup(Color teamColor, Color32 imageColor, PieceManager pieceManager)
         {
-            base.Setup(newTeamColor, newSpriteColor, newPieceManager);
+            base.Setup(teamColor, imageColor, pieceManager);
 
             movement = new Vector3Int(7, 7, 7);
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Queen");
         }
     }
 }

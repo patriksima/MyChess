@@ -6,22 +6,21 @@ namespace ChessBoard
 {
     public class Pawn : Piece
     {
-        public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
+        public override void Setup(Color teamColor, Color32 imageColor, PieceManager pieceManager)
         {
-            base.Setup(newTeamColor, newSpriteColor, newPieceManager);
+            base.Setup(teamColor, imageColor, pieceManager);
 
             movement = TeamColor == Color.white ? new Vector3Int(0, 1, 1) : new Vector3Int(0, -1, -1);
 
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Pawn");
         }
 
         private bool MatchesState(int targetX, int targetY, CellState targetState)
         {
-            var cellState = currentCell.Board.GetCellState(targetX, targetY, this);
+            var cellState = CurrentCell.Board.GetCellState(targetX, targetY, this);
 
             if (cellState == targetState)
             {
-                highlightedCells.Add(currentCell.Board.AllCells[targetX, targetY]);
+                highlightedCells.Add(CurrentCell.Board.AllCells[targetX, targetY]);
                 return true;
             }
 
@@ -30,8 +29,8 @@ namespace ChessBoard
 
         protected override void CheckPathing()
         {
-            var currentX = currentCell.BoardPosition.x;
-            var currentY = currentCell.BoardPosition.y;
+            var currentX = CurrentCell.BoardPosition.x;
+            var currentY = CurrentCell.BoardPosition.y;
 
             MatchesState(currentX - movement.z, currentY + movement.z, CellState.Enemy);
 
@@ -44,28 +43,6 @@ namespace ChessBoard
             }
 
             MatchesState(currentX + movement.z, currentY + movement.z, CellState.Enemy);
-
-            if (isFirstMove)
-            {
-                return;
-            }
-            
-            // enpassant possibility hightlights cells
-            var gd = GameManager.Instance.GameData;
-            var lm = gd.GetLastMoveNumber();
-            Debug.Log("Last move no: " + lm);
-            if (lm > 1)
-            {
-                var m = gd.GetMovePair(lm - 1);
-                if (TeamColor == Color.white)
-                {
-                    // check black pawn on sides
-                }
-                else
-                {
-                    // check white pawn on sides
-                }
-            }
         }
     }
 }

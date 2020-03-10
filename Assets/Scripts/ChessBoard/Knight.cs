@@ -5,17 +5,12 @@ namespace ChessBoard
 {
     public class Knight : Piece
     {
-        public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
-        {
-            base.Setup(newTeamColor, newSpriteColor, newPieceManager);
 
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Knight");
-        }
 
         private void CreateCellPath(int flipper)
         {
-            var currentX = currentCell.BoardPosition.x;
-            var currentY = currentCell.BoardPosition.y;
+            var currentX = CurrentCell.BoardPosition.x;
+            var currentY = CurrentCell.BoardPosition.y;
 
             //left
             MatchesState(currentX - 2, currentY + flipper);
@@ -35,11 +30,11 @@ namespace ChessBoard
 
         private void MatchesState(int targetX, int targetY)
         {
-            var cellState = currentCell.Board.GetCellState(targetX, targetY, this);
+            var cellState = CurrentCell.Board.GetCellState(targetX, targetY, this);
 
             if (cellState != CellState.Friendly && cellState != CellState.OutOfBounds)
             {
-                highlightedCells.Add(currentCell.Board.AllCells[targetX, targetY]);
+                highlightedCells.Add(CurrentCell.Board.AllCells[targetX, targetY]);
             }
         }
     }

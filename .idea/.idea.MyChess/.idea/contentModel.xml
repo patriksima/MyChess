@@ -13,6 +13,7 @@
             <e p="Bishop.cs" t="Include" />
             <e p="Board.cs" t="Include" />
             <e p="Cell.cs" t="Include" />
+            <e p="CellOutlineAbility.cs" t="Include" />
             <e p="King.cs" t="Include" />
             <e p="Knight.cs" t="Include" />
             <e p="Pawn.cs" t="Include" />

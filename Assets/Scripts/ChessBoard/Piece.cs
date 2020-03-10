@@ -1,72 +1,78 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyChess;
+using NSubstitute;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace ChessBoard
 {
-    public interface IPiece
+    public abstract class Piece : EventTrigger
     {
-        // dummy interface
-    }
+        #region Events
 
-    public abstract class Piece : EventTrigger, IPiece
-    {
-        protected Cell currentCell;
+        public static event Action<Piece> OnPieceMoved;
+
+        #endregion
+
+        #region Chess Data
+
+        
+        public bool isFirstMove = true;
+        public Color TeamColor { get; private set; }
+        public Move LastMove { get; private set; }
+        
+        #endregion
+
+        private Cell _currentCell;
+
+        public Cell CurrentCell => _currentCell;
+
         protected List<Cell> highlightedCells = new List<Cell>();
-        protected bool isFirstMove = true;
 
         protected Vector3Int movement = Vector3Int.one;
-        protected Cell originalCell;
-        protected PieceManager pieceManager;
-        protected RectTransform rect;
+        private Cell _originalCell;
+        private PieceManager _pieceManager;
         protected Cell targetCell;
 
-        public Color TeamColor { get; set; }
 
-        public bool IsFirstMove
+        public virtual void Setup(Color teamColor, Color32 imageColor, PieceManager pieceManager)
         {
-            get => isFirstMove;
-            set => isFirstMove = value;
-        }
-
-        public virtual void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
-        {
-            pieceManager = newPieceManager;
-            TeamColor = newTeamColor;
-            GetComponent<Image>().color = newSpriteColor;
-            rect = GetComponent<RectTransform>();
+            _pieceManager = pieceManager;
+            TeamColor = teamColor;
+            GetComponent<Image>().color = imageColor;
         }
 
         /// <summary>
-        /// Place a piece into a cell
+        /// Attach a piece to a cell
         /// </summary>
-        /// <param name="newCell"></param>
-        public virtual void Place(Cell newCell)
+        /// <param name="cell"></param>
+        public virtual void AttachToCell(Cell cell)
         {
-            currentCell = newCell;
-            originalCell = newCell;
-            currentCell.SetPiece(this);
-            transform.position = newCell.transform.position;
+            _currentCell = cell;
+            _originalCell = cell;
+            _currentCell.SetPiece(this);
+            transform.position = cell.transform.position;
             gameObject.SetActive(true);
+            LastMove = new Move(_currentCell.BoardPosition,_currentCell.BoardPosition, this);
         }
 
         private void CreateCellPath(int xDir, int yDir, int move)
         {
-            var currX = currentCell.BoardPosition.x;
-            var currY = currentCell.BoardPosition.y;
+            var currX = _currentCell.BoardPosition.x;
+            var currY = _currentCell.BoardPosition.y;
 
             for (var i = 1; i <= move; i++)
             {
                 currX += xDir;
                 currY += yDir;
 
-                var cellState = currentCell.Board.GetCellState(currX, currY, this);
+                var cellState = _currentCell.Board.GetCellState(currX, currY, this);
 
                 if (cellState == CellState.Enemy)
                 {
-                    highlightedCells.Add(currentCell.Board.AllCells[currX, currY]);
+                    highlightedCells.Add(_currentCell.Board.AllCells[currX, currY]);
                     break;
                 }
 
@@ -75,7 +81,7 @@ namespace ChessBoard
                     break;
                 }
 
-                highlightedCells.Add(currentCell.Board.AllCells[currX, currY]);
+                highlightedCells.Add(_currentCell.Board.AllCells[currX, currY]);
             }
         }
 
@@ -97,14 +103,14 @@ namespace ChessBoard
         public void Reset()
         {
             Kill();
-            Place(originalCell);
+            AttachToCell(_originalCell);
         }
 
         protected void ShowCells()
         {
             foreach (var cell in highlightedCells)
             {
-                cell.OutlineImage.enabled = true;
+                cell.outlineAbility.On();
             }
         }
 
@@ -112,7 +118,7 @@ namespace ChessBoard
         {
             foreach (var cell in highlightedCells)
             {
-                cell.OutlineImage.enabled = false;
+                cell.outlineAbility.Off();
             }
 
             highlightedCells.Clear();
@@ -135,7 +141,7 @@ namespace ChessBoard
 
             foreach (var cell in highlightedCells)
             {
-                if (RectTransformUtility.RectangleContainsScreenPoint(cell.CellRectTransform, Input.mousePosition))
+                if (cell.IsPointInside(Input.mousePosition))
                 {
                     targetCell = cell;
                     break;
@@ -153,44 +159,48 @@ namespace ChessBoard
 
             if (!targetCell)
             {
-                transform.position = currentCell.gameObject.transform.position;
+                transform.position = _currentCell.gameObject.transform.position;
                 return;
             }
 
             Move();
 
-            pieceManager.SwitchSides(TeamColor);
+            _pieceManager.ChangeSide(TeamColor);
         }
 
         public virtual void Kill()
         {
-            //currentCell.RemovePiece();
             gameObject.SetActive(false);
         }
 
         protected virtual void Move()
         {
-            var prevCell = currentCell;
+            var prevCell = _currentCell;
             var targetPiece = targetCell.CurrentPiece;
 
             targetCell.KillPiece();
             targetCell.RemovePiece();
-            currentCell.RemovePiece();
+            _currentCell.RemovePiece();
 
-            currentCell = targetCell;
-            currentCell.SetPiece(this);
+            _currentCell = targetCell;
+            _currentCell.SetPiece(this);
             gameObject.SetActive(true);
 
-            transform.position = currentCell.transform.position;
+            transform.position = _currentCell.transform.position;
 
             targetCell = null;
             isFirstMove = false;
 
+            LastMove = new Move(prevCell.BoardPosition, _currentCell.BoardPosition, this);
+
+
+            // Send message about movement
+            OnPieceMoved?.Invoke(this);
 
             // GameManager.Instance.GameData.AddHalfMove(new Move(currentCell.BoardPosition, currentCell.CurrentPiece));
 
             Debug.Log(
-                AnnotationEngine.Instance.ToSan(currentCell, prevCell.BoardPosition, targetPiece, TeamColor,
+                AnnotationEngine.Instance.ToSan(_currentCell, prevCell.BoardPosition, targetPiece, TeamColor,
                     CastleStatus.NONE));
         }
     }

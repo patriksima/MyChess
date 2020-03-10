@@ -8,24 +8,24 @@ namespace ChessBoard
         private Cell castleCell;
         public Cell CastleTriggercell { get; set; }
 
-        public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
+        public override void Setup(Color teamColor, Color32 imageColor, PieceManager pieceManager)
         {
-            base.Setup(newTeamColor, newSpriteColor, newPieceManager);
+            base.Setup(teamColor, imageColor, pieceManager);
 
             movement = new Vector3Int(7, 7, 0);
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("Rook");
+            
         }
 
-        public override void Place(Cell newCell)
+        public override void AttachToCell(Cell cell)
         {
-            base.Place(newCell);
+            base.AttachToCell(cell);
 
             // trigger cell
-            var triggerOffset = currentCell.BoardPosition.x < 4 ? 2 : -1;
+            var triggerOffset = CurrentCell.BoardPosition.x < 4 ? 2 : -1;
             CastleTriggercell = SetCell(triggerOffset);
 
             // castle cell
-            var castleOffset = currentCell.BoardPosition.x < 4 ? 3 : -2;
+            var castleOffset = CurrentCell.BoardPosition.x < 4 ? 3 : -2;
             castleCell = SetCell(castleOffset);
         }
 
@@ -41,11 +41,11 @@ namespace ChessBoard
         private Cell SetCell(int offset)
         {
             // ne position
-            var newPosition = currentCell.BoardPosition;
+            var newPosition = CurrentCell.BoardPosition;
             newPosition.x += offset;
 
             // return
-            return currentCell.Board.AllCells[newPosition.x, newPosition.y];
+            return CurrentCell.Board.AllCells[newPosition.x, newPosition.y];
         }
     }
 }

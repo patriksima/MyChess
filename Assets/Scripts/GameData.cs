@@ -19,16 +19,19 @@ namespace MyChess
 
     public class Move
     {
-        private Vector2Int _vector;
-        private IPiece _piece;
+        private Vector2Int _previousPosition;
+        private Vector2Int _currentPosition;
+        private Piece _piece;
 
-        public Vector2Int Vector => _vector;
+        public Vector2Int CurrentPosition => _currentPosition;
+        public Vector2Int PreviousPosition => _previousPosition;
 
-        public IPiece Piece => _piece;
+        public Piece Piece => _piece;
 
-        public Move(Vector2Int vector, IPiece piece)
+        public Move(Vector2Int previousPosition, Vector2Int currentPosition, Piece piece)
         {
-            _vector = vector;
+            _currentPosition = currentPosition;
+            _previousPosition = previousPosition;
             _piece = piece;
         }
 
@@ -70,8 +73,8 @@ namespace MyChess
         /// <returns>string</returns>
         public string ToSan()
         {
-            var rank = (_vector.y + 1).ToString();
-            var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[_vector.x];
+            var rank = (_currentPosition.y + 1).ToString();
+            var file = new[] {"a", "b", "c", "d", "e", "f", "g", "h"}[_currentPosition.x];
             var symbol = GetPieceAsSymbol();
 
             return $"{symbol}{file}{rank}";

@@ -79,10 +79,10 @@ namespace ChessBoard
             // place pieces
             for (var i = 0; i < 8; i++)
             {
-                _whitePieces[i].Place(_board.AllCells[i, 1]);
-                _whitePieces[i + 8].Place(_board.AllCells[i, 0]);
-                _blackPieces[i].Place(_board.AllCells[i, 6]);
-                _blackPieces[i + 8].Place(_board.AllCells[i, 7]);
+                _whitePieces[i].AttachToCell(_board.AllCells[i, 1]);
+                _whitePieces[i + 8].AttachToCell(_board.AllCells[i, 0]);
+                _blackPieces[i].AttachToCell(_board.AllCells[i, 6]);
+                _blackPieces[i + 8].AttachToCell(_board.AllCells[i, 7]);
             }
         }
 
@@ -100,27 +100,28 @@ namespace ChessBoard
         }
 
         /// <summary>
+        /// Change the side that is on the move
         /// Enable/disable interactivity of players pieces
         /// </summary>
-        /// <param name="teamColor"></param>
-        public void SwitchSides(Color teamColor)
+        /// <param name="currentTeamColor"></param>
+        public void ChangeSide(Color currentTeamColor)
         {
             // TODO: Refactor
             if (!GameManager.Instance.IsKingAlive)
             {
                 ResetPieces();
                 GameManager.Instance.IsKingAlive = true;
-                teamColor = Color.black;
+                currentTeamColor = Color.black;
             }
 
             foreach (var piece in _whitePieces)
             {
-                piece.enabled = teamColor != Color.white;
+                piece.enabled = currentTeamColor == Color.black;
             }
 
             foreach (var piece in _blackPieces)
             {
-                piece.enabled = teamColor != Color.black;
+                piece.enabled = currentTeamColor == Color.white;
             }
         }
 

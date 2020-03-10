@@ -21,7 +21,7 @@ namespace ChessBoard
         private Vector2Int _prevPos;
         private CastleStatus _castleStatus;
         private Color _teamColor;
-        private IPiece _targetPiece;
+        private Piece _targetPiece;
 
 
         // inputs
@@ -31,7 +31,7 @@ namespace ChessBoard
         // - piece team color (white, black)
         // - player castling status (if player have castled short or long or none)
         // - board - for checking ambiguity (multiple choice)
-        public string ToSan(Cell currCell, Vector2Int prevPos, IPiece targetPiece, Color teamColor,
+        public string ToSan(Cell currCell, Vector2Int prevPos, Piece targetPiece, Color teamColor,
             CastleStatus castleStatus)
         {
             _currCell = currCell;
@@ -221,7 +221,7 @@ namespace ChessBoard
             return (position.x >= 0 && position.x < 8 && position.y >= 0 && position.y < 8);
         }
 
-        private string GetPieceAsSymbol(IPiece piece)
+        private string GetPieceAsSymbol(Piece piece)
         {
             string symbol;
 

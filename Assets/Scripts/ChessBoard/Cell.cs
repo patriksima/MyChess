@@ -11,12 +11,12 @@ namespace ChessBoard
         #region MonoBehaviour Stuff
 
         [SerializeField] private Image outlineImage;
-        public Image OutlineImage => outlineImage;
+        public ICellAbility outlineAbility;
 
         /// <summary>
         /// Cached RectTransform
         /// </summary>
-        public RectTransform CellRectTransform { get; private set; }
+        private RectTransform _rectTransform;
 
         #endregion
 
@@ -37,7 +37,18 @@ namespace ChessBoard
         {
             Board = board;
             BoardPosition = boardPosition;
-            CellRectTransform = GetComponent<RectTransform>();
+            _rectTransform = GetComponent<RectTransform>();
+            outlineAbility = new CellOutlineAbility(outlineImage);
+        }
+
+        /// <summary>
+        /// Check if (mouse) point is inside our cell (rect)
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns>bool</returns>
+        public bool IsPointInside(Vector3 point)
+        {
+            return RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, point);
         }
 
         /// <summary>
@@ -68,4 +79,6 @@ namespace ChessBoard
             }
         }
     }
+
+
 }

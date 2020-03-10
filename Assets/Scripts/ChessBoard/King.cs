@@ -9,12 +9,11 @@ namespace ChessBoard
         private Rook leftRook;
         private Rook rightRook;
 
-        public override void Setup(Color newTeamColor, Color32 newSpriteColor, PieceManager newPieceManager)
+        public override void Setup(Color teamColor, Color32 imageColor, PieceManager pieceManager)
         {
-            base.Setup(newTeamColor, newSpriteColor, newPieceManager);
+            base.Setup(teamColor, imageColor, pieceManager);
 
             movement = new Vector3Int(1, 1, 1);
-            GetComponent<Image>().sprite = Resources.Load<Sprite>("King");
         }
 
         public override void Kill()
@@ -57,7 +56,7 @@ namespace ChessBoard
                 return false;
             }
 
-            if (rook.CastleTriggercell != currentCell)
+            if (rook.CastleTriggercell != CurrentCell)
             {
                 return false;
             }
@@ -74,14 +73,14 @@ namespace ChessBoard
             }
 
             // Position
-            var currentX = currentCell.BoardPosition.x;
-            var currentY = currentCell.BoardPosition.y;
+            var currentX = CurrentCell.BoardPosition.x;
+            var currentY = CurrentCell.BoardPosition.y;
 
             // Go through the cells in between
             for (var i = 1; i < count; i++)
             {
                 var offsetX = currentX + i * direction;
-                var cellState = currentCell.Board.GetCellState(offsetX, currentY, this);
+                var cellState = CurrentCell.Board.GetCellState(offsetX, currentY, this);
 
                 if (cellState != CellState.Free)
                 {
@@ -90,7 +89,7 @@ namespace ChessBoard
             }
 
             // Try and get rook
-            var rookCell = currentCell.Board.AllCells[currentX + count * direction, currentY];
+            var rookCell = CurrentCell.Board.AllCells[currentX + count * direction, currentY];
             Rook rook = null;
 
             // Cast
@@ -107,7 +106,7 @@ namespace ChessBoard
                 return null;
             }
 
-            if (rook.TeamColor != TeamColor || !rook.IsFirstMove)
+            if (rook.TeamColor != TeamColor || !rook.isFirstMove)
             {
                 return null;
             }

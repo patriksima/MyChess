@@ -15,7 +15,7 @@ namespace Tests
         public void AddOneHalfMoveTest()
         {
             var gameData = new GameData();
-            var move = new Move(new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
+            var move = new Move(new Vector2Int(3, 1), new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
 
             gameData.AddHalfMove(move);
             
@@ -31,8 +31,8 @@ namespace Tests
         public void AddTwoHalfMoveTest()
         {
             var gameData = new GameData();
-            var moveWhite = new Move(new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
-            var moveBlack = new Move(new Vector2Int(3, 4), NSubstitute.Substitute.For<Pawn>());
+            var moveWhite = new Move(new Vector2Int(3, 1),new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
+            var moveBlack = new Move(new Vector2Int(3, 6), new Vector2Int(3, 4), NSubstitute.Substitute.For<Pawn>());
 
             gameData.AddHalfMove(moveWhite);
             gameData.AddHalfMove(moveBlack);
@@ -53,9 +53,9 @@ namespace Tests
         public void AddThreeHalfMoveTest()
         {
             var gameData = new GameData();
-            var moveOne = new Move(new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
-            var moveTwo = new Move(new Vector2Int(3, 4), NSubstitute.Substitute.For<Pawn>());
-            var moveThree = new Move(new Vector2Int(4, 3), NSubstitute.Substitute.For<Pawn>());
+            var moveOne = new Move(new Vector2Int(3, 1), new Vector2Int(3, 3), NSubstitute.Substitute.For<Pawn>());
+            var moveTwo = new Move(new Vector2Int(3, 6), new Vector2Int(3, 4), NSubstitute.Substitute.For<Pawn>());
+            var moveThree = new Move(new Vector2Int(4, 1), new Vector2Int(4, 3), NSubstitute.Substitute.For<Pawn>());
 
             gameData.AddHalfMove(moveOne);
             gameData.AddHalfMove(moveTwo);
